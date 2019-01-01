@@ -1,0 +1,25 @@
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <material name="red">
+    <color rgba="1.0 0.0 0.0 2.0"/>
+  </material>
+
+  <xacro:property name="pi" value="3.141592" />
+
+  <xacro:macro name="box_macro" params="suffix parent x y yaw radius">
+    <joint name="${suffix}_joint" type="fixed">
+      <origin rpy="0 0 ${yaw}" xyz="${x} ${y} 0"/>
+      <parent link="${parent}"/>
+      <child  link="${suffix}_link"/>
+    </joint>
+
+    <link name="${suffix}_link">
+      <visual>
+        <geometry>
+          <cylinder radius="${radius}" length="0.3" />
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
+        <material name="red"/>
+      </visual>
+    </link>
+  </xacro:macro>  
+</robot>

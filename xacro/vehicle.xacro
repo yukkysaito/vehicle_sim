@@ -1,0 +1,22 @@
+<robot name="test_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find vehicle_model)/xacro/wheel.xacro" />
+  <xacro:arg name="wheel_radius" default="0.5"/>
+  <xacro:arg name="wheel_base" default="2.950"/>
+  <xacro:arg name="wheel_tread" default="1.55"/>
+
+
+  <xacro:property name="pi" value="3.141592" />
+
+  <link name="base_link"/>
+  <joint name="base_joint" type="fixed">
+    <parent link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 $(arg wheel_radius)"/>
+    <child  link="wheel_base_link"/>
+  </joint>
+  <link name="wheel_base_link"/>
+
+  <xacro:box_macro suffix="wheel_right_rear" parent="wheel_base_link" x="0" y="${-1*$(arg wheel_tread)/2}" yaw="${-1*pi/2}" radius="$(arg wheel_radius)"/>
+  <xacro:box_macro suffix="wheel_left_rear" parent="wheel_base_link" x="0" y="${$(arg wheel_tread)/2}" yaw="${pi/2}" radius="$(arg wheel_radius)"/>
+  <xacro:box_macro suffix="wheel_right_front" parent="wheel_base_link" x="$(arg wheel_base)" y="${-1*$(arg wheel_tread)/2}" yaw="${-1*pi/2}" radius="$(arg wheel_radius)"/>
+  <xacro:box_macro suffix="wheel_left_front" parent="wheel_base_link" x="$(arg wheel_base)" y="${$(arg wheel_tread)/2}" yaw="${pi/2}" radius="$(arg wheel_radius)"/>
+</robot>
