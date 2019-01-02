@@ -18,13 +18,13 @@
   <link name="wheel_base_link">
     <inertial>
       <origin xyz="${$(arg wheel_base)/2} 0 0" rpy="0 0 0"/>
-      <mass value="1000.0"/>
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <mass value="2000.0"/>
+      <inertia ixx="60.0" ixy="0.0" ixz="0.0" iyy="1000.0" iyz="0.0" izz="1000.0"/>
     </inertial>
     <visual>
       <origin xyz="1.5 0 0.7" rpy="0 0 0"/>
       <geometry>
-        <box size="3.0 0.9 1.4"/>
+        <box size="4.0 2.0 1.4"/>
       </geometry>
     </visual>
     <collision>
@@ -44,7 +44,7 @@
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="1.0"/>
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="0.01"/>
     </inertial>
   </link>
   
@@ -57,7 +57,7 @@
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <mass value="1.0"/>
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="0.01"/>
     </inertial>
   </link>
 
@@ -69,26 +69,10 @@
   <xacro:wheel_macro suffix="wheel_left_front" parent="steering_left_front_link" x="0" y="0" yaw="${0}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
   <xacro:wheel_macro suffix="wheel_right_rear" parent="wheel_rear_base_link" x="0" y="${-1*$(arg wheel_tread)/2}" yaw="${pi}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
   <xacro:wheel_macro suffix="wheel_left_rear" parent="wheel_rear_base_link" x="0" y="${$(arg wheel_tread)/2}" yaw="${0}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
-    <!-- <transmission name="$wheel_left_rear_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="wheel_left_rear_joint">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="wheel_left_rear_motor">
-         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-         <mechanismReduction>1</mechanismReduction>
-      </actuator>
-    </transmission>
-    <transmission name="wheel_right_rear_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="wheel_right_rear_joint">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="wheel_right_rear_motor">
-         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-         <mechanismReduction>1</mechanismReduction>
-      </actuator>
-    </transmission> -->
+
+  <!-- gazebo -->
+ 	<!-- <xacro:include filename="$(find catvehicle)/urdf/wheel.gazebo"/>
+ 	<xacro:include filename="$(find catvehicle)/urdf/steering.gazebo"/> -->
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
       <robotNamespace>/autoware</robotNamespace>

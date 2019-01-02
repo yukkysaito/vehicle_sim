@@ -1,88 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- <launch>
-  <arg name="model" default="$(find vehicle_model)/xacro/vehicle.xacro"/>
-  <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
-
-  <include file="$(find gazebo_ros)/launch/empty_world.launch" />
-
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-    args="-urdf -model my_robo -param robot_description"/>
-</launch> -->
-
 <launch>
   <arg name="model" default="$(find vehicle_model)/urdf/vehicle.xacro"/>
   <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <!-- <arg name="world_name" value="$(find vehicle_model)/world/canyonview_field.world"/> -->
+    <arg name="world_name" value="$(find vehicle_model)/world/canyonview_field.world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
-    <arg name="gui" value="false"/>
+    <arg name="gui" value="true"/>
     <arg name="headless" value="false"/>
     <arg name="debug" value="false"/>
   </include>
 
   <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model autoware" />
 
-  <rosparam>
-    autoware:
-      joint_state_controller:
-        type: joint_state_controller/JointStateController
-        publish_rate: 50  
-      
-      diff_drive_controller:
-        type        : "diff_drive_controller/DiffDriveController"
-        left_wheel  : 'wheel_left_rear_joint'
-        right_wheel : 'wheel_right_rear_joint'
-        publish_rate: 50.0               # default: 50
-        pose_covariance_diagonal : [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
-        twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
-
-        # Wheel separation and diameter. These are both optional.
-        # diff_drive_controller will attempt to read either one or both from the
-        # URDF if not specified as a parameter
-        wheel_separation : 1.55
-        wheel_radius : 0.341
-
-        # Wheel separation and radius multipliers
-        wheel_separation_multiplier: 1.0 # default: 1.0
-        wheel_radius_multiplier    : 1.0 # default: 1.0
-
-        # Velocity commands timeout [s], default 0.5
-        cmd_vel_timeout: 1.0
-          
-        # Base frame_id
-        base_frame_id: base_link #default: base_link
-          
-        # Velocity and acceleration limits
-        # Whenever a min_* is unspecified, default to -max_*
-        linear:
-          x:
-            has_velocity_limits    : true
-            max_velocity           : 0.55  # m/s
-            min_velocity           : -0.55 # m/s
-            has_acceleration_limits: true
-            max_acceleration       : 1.0  # m/s^2
-            min_acceleration       : -1.0 # m/s^2
-        angular:
-          z:
-            has_velocity_limits    : true
-            max_velocity           : 0.3  # rad/s
-            min_velocity           : -0.3
-            has_acceleration_limits: true
-            max_acceleration       : 0.3  # rad/s^2
-            min_acceleration       : -0.3
-
-  </rosparam>
-  <node name="controller_spawner" pkg="controller_manager"
-        type="spawner" respawn="false"
-        output="screen" ns="/autoware"
-        args="joint_state_controller diff_drive_controller"/>
   <!-- Load joint controller configurations from YAML file to parameter server -->
-  <!-- <rosparam file="$(find vehicle_model)/config/controller.yaml" command="load" ns="/autoware"/> -->
+  <rosparam file="$(find vehicle_model)/config/controller.yaml" command="load" ns="/autoware"/>
   <!-- load the controllers -->
-  <!-- <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
         output="screen" ns="/autoware" 
-        args="wheel_left_rear_velocity_controller wheel_right_rear_velocity_controller steering_left_front_position_controller steering_right_front_position_controller joint_state_controller"/> -->
+        args="wheel_left_rear_velocity_controller wheel_right_rear_velocity_controller steering_left_front_position_controller steering_right_front_position_controller joint_state_controller"/>
 
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
