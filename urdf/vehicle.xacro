@@ -1,0 +1,106 @@
+<robot name="autoware" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find vehicle_model)/urdf/wheel.xacro" />
+  <xacro:include filename="$(find vehicle_model)/urdf/steering.xacro" />
+  <xacro:arg name="wheel_radius" default="0.341"/>
+  <xacro:arg name="wheel_width" default="0.225"/>
+  <xacro:arg name="wheel_base" default="2.950"/>
+  <xacro:arg name="wheel_tread" default="1.55"/>
+  
+  <xacro:property name="pi" value="3.141592" />
+
+  <link name="base_link"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 $(arg wheel_radius)"/>
+    <child  link="wheel_base_link"/>
+  </joint>  
+  <link name="wheel_base_link">
+    <inertial>
+      <origin xyz="${$(arg wheel_base)/2} 0 0" rpy="0 0 0"/>
+      <mass value="1000.0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="1.5 0 0.7" rpy="0 0 0"/>
+      <geometry>
+        <box size="3.0 0.9 1.4"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="1.5 0 0.7" rpy="0 0 0"/>
+      <geometry>
+        <box size="3.0 0.9 1.4"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="wheel_front_base_joint" type="fixed">
+    <parent link="wheel_base_link"/>
+    <origin rpy="0 0 0" xyz="$(arg wheel_base) 0 0"/>
+    <child  link="wheel_front_base_link"/>
+  </joint>
+  <link name="wheel_front_base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+  
+  <joint name="wheel_rear_base_joint" type="fixed">
+    <parent link="wheel_base_link"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <child  link="wheel_rear_base_link"/>
+  </joint>
+  <link name="wheel_rear_base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+
+  <xacro:steering_macro suffix="steering_right_front" parent="wheel_front_base_link" x="0" y="${-1*$(arg wheel_tread)/2}" yaw="0" length="$(arg wheel_width)"/>
+  <xacro:steering_macro suffix="steering_left_front" parent="wheel_front_base_link" x="0" y="${$(arg wheel_tread)/2}" yaw="0" length="$(arg wheel_width)"/>
+
+  <xacro:wheel_macro suffix="wheel_right_front" parent="steering_right_front_link" x="0" y="0" yaw="${pi}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
+  <xacro:wheel_macro suffix="wheel_left_front" parent="steering_left_front_link" x="0" y="0" yaw="${0}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
+  <xacro:wheel_macro suffix="wheel_right_rear" parent="wheel_rear_base_link" x="0" y="${-1*$(arg wheel_tread)/2}" yaw="${pi}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
+  <xacro:wheel_macro suffix="wheel_left_rear" parent="wheel_rear_base_link" x="0" y="${$(arg wheel_tread)/2}" yaw="${0}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
+    <!-- <transmission name="$wheel_left_rear_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="wheel_left_rear_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="wheel_left_rear_motor">
+         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+         <mechanismReduction>1</mechanismReduction>
+      </actuator>
+    </transmission>
+    <transmission name="wheel_right_rear_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="wheel_right_rear_joint">
+        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="wheel_right_rear_motor">
+         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
+         <mechanismReduction>1</mechanismReduction>
+      </actuator>
+    </transmission> -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/autoware</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+  <gazebo>
+    <plugin filename="libgazebo_ros_joint_state_publisher.so" name="joint_state_publisher">
+      <jointName>wheel_left_rear_joint, wheel_right_rear_joint, steering_left_front_joint, steering_right_front_joint, wheel_right_front_joint, wheel_left_front_joint</jointName>
+      <updateRate>50.0</updateRate>
+      <robotNamespace>/autoware</robotNamespace>
+      <alwaysOn>true</alwaysOn>
+    </plugin>
+  </gazebo>
+</robot>

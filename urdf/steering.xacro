@@ -1,0 +1,51 @@
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="pi" value="3.141592" />
+
+  <xacro:macro name="steering_macro" params="suffix parent x y yaw length">
+    <joint name="${suffix}_joint" type="revolute">
+      <origin rpy="0 0 0" xyz="${x} ${y} 0"/>
+      <parent link="${parent}"/>
+      <child  link="${suffix}_link"/>
+      <axis xyz="0 0 1"/>
+      <limit effort="1000.0" lower="-1" upper="1" velocity="0.5"/>
+    </joint>
+
+    <transmission name="${suffix}_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${suffix}_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${suffix}_motor">
+         <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+         <mechanismReduction>1</mechanismReduction>
+      </actuator>
+    </transmission>
+
+    <link name="${suffix}_link">
+      <visual>
+        <geometry>
+          <cylinder length="0.01" radius="0.1"/>
+        </geometry>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <material name="black">
+          <color rgba="0.1 0.1 0.1 2.0"/>
+        </material>
+      </visual>
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1"/>
+        <inertia ixx="0.4"  ixy="0"  ixz="0" iyy="0.6" iyz="0" izz="0.4" />
+      </inertial>
+    </link>
+    <gazebo reference="${suffix}_link">
+      <material>Gazebo/Red</material>
+        <mu1 value="0.6" />
+        <mu2 value="0.5" />
+        <kp value="1000000" />
+        <kd value="0.1" />
+        <minDepth value="0.01"/>
+        <maxVel value="10.0" />
+    </gazebo>
+  </xacro:macro>  
+</robot>
