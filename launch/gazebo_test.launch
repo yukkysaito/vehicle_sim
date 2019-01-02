@@ -3,7 +3,7 @@
   <arg name="model" default="$(find vehicle_model)/urdf/vehicle.xacro"/>
   <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find vehicle_model)/world/canyonview_field.world"/>
+    <!-- <arg name="world_name" value="$(find vehicle_model)/world/canyonview_field.world"/> -->
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
@@ -18,7 +18,7 @@
   <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
         output="screen" ns="/autoware" 
-        args="wheel_left_rear_velocity_controller wheel_right_rear_velocity_controller steering_left_front_position_controller steering_right_front_position_controller joint_state_controller"/>
+        args="wheel_left_rear_velocity_controller wheel_right_rear_velocity_controller wheel_left_front_velocity_controller wheel_right_front_velocity_controller steering_left_front_position_controller steering_right_front_position_controller joint_state_controller"/>
 
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />

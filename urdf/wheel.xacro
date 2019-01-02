@@ -48,8 +48,8 @@
     </transmission>
     <gazebo reference="${suffix}_link">
       <material>Gazebo/Red</material>
-      <mu1 value="10000" />
-      <mu2 value="10000" />
+      <mu1 value="1.0" />
+      <mu2 value="1.0" />
    		<kp value="1000000" />
       <kd value="0.1" />
       <minDepth value="0.01" />
