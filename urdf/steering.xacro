@@ -13,7 +13,7 @@
       <parent link="${parent}"/>
       <child  link="${suffix}_link"/>
       <axis xyz="0 0 1"/>
-      <limit effort="1000.0" lower="-0.6" upper="0.6" velocity="0.5"/>
+      <limit effort="100000000.0" lower="-0.6" upper="0.6" velocity="0.5"/>
     </joint>
 
     <link name="${suffix}_link">
