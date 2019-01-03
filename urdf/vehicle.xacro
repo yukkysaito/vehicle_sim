@@ -33,8 +33,6 @@
 
   <xacro:wheel_macro suffix="wheel_right_front" parent="steering_right_front_link" x="0" y="0" yaw="${pi}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
   <xacro:wheel_macro suffix="wheel_left_front" parent="steering_left_front_link" x="0" y="0" yaw="${0}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
-  <!-- <xacro:wheel_macro suffix="wheel_right_front" parent="wheel_base_link" x="$(arg wheel_base)" y="${-1*$(arg wheel_tread)/2}" yaw="${pi}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
-  <xacro:wheel_macro suffix="wheel_left_front" parent="wheel_base_link" x="$(arg wheel_base)" y="${$(arg wheel_tread)/2}" yaw="${0}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/> -->
   <xacro:wheel_macro suffix="wheel_right_rear" parent="wheel_base_link" x="0" y="${-1*$(arg wheel_tread)/2}" yaw="${pi}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
   <xacro:wheel_macro suffix="wheel_left_rear" parent="wheel_base_link" x="0" y="${$(arg wheel_tread)/2}" yaw="${0}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
 
