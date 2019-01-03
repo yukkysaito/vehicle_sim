@@ -2,7 +2,12 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:property name="pi" value="3.1415926835897931" />
 
+
   <xacro:macro name="steering_macro" params="suffix parent x y yaw length">
+    <xacro:property name="radius" value="0.1" />
+    <xacro:property name="length" value="0.01" />
+    <xacro:property name="mass" value="10.0" />
+
     <joint name="${suffix}_joint" type="revolute">
       <origin rpy="0 0 0" xyz="${x} ${y} 0"/>
       <parent link="${parent}"/>
@@ -14,7 +19,7 @@
     <link name="${suffix}_link">
       <visual>
         <geometry>
-          <cylinder radius="0.1" length="0.01"/>
+          <cylinder radius="${radius}" length="${length}"/>
         </geometry>
         <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
         <material name="black">
@@ -23,10 +28,10 @@
       </visual>
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="10.0"/>
-        <inertia ixx="0.0250833"  ixy="0"  ixz="0" iyy="0.05" iyz="0" izz="0.0250833" />
-        <!-- <mass value="10.0"/>
-        <inertia ixx="0.4"  ixy="0"  ixz="0" iyy="0.6" iyz="0" izz="0.4" /> -->
+        <mass value="${mass}"/>
+        <inertia ixx="${radius*radius*mass/4+length*length*mass/12}"  ixy="0"  ixz="0" 
+                 iyy="${mass*radius*radius/2}" iyz="0" 
+                 izz="${radius*radius*mass/4+length*length*mass/12}" />
       </inertial>
       <!-- <collision>
         <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
