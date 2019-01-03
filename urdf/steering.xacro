@@ -1,6 +1,6 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:property name="pi" value="3.141592" />
+  <xacro:property name="pi" value="3.1415926835897931" />
 
   <xacro:macro name="steering_macro" params="suffix parent x y yaw length">
     <joint name="${suffix}_joint" type="revolute">
@@ -11,21 +11,11 @@
       <limit effort="1000.0" lower="-1" upper="1" velocity="0.5"/>
     </joint>
 
-    <transmission name="${suffix}_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${suffix}_joint">
-        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="${suffix}_motor">
-         <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
-         <mechanismReduction>1</mechanismReduction>
-      </actuator>
-    </transmission>
-
     <link name="${suffix}_link">
       <visual>
         <geometry>
-          <cylinder length="0.01" radius="0.1"/>
+          <box size="0.01 0.01 0.01"/>
+          <!-- <cylinder length="0.01" radius="0.1"/> -->
         </geometry>
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <material name="black">
@@ -34,11 +24,28 @@
       </visual>
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="10"/>
-        <inertia ixx="0.4"  ixy="0"  ixz="0" iyy="0.6" iyz="0" izz="0.4" />
+        <mass value="0.01"/>
+        <inertia ixx="${(0.0001+0.0001)*0.01/12}"  ixy="0"  ixz="0" iyy="${(0.0001+0.0001)*0.01/12}" iyz="0" izz="${(0.0001+0.0001)*0.01/12}" />
       </inertial>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="0.01 0.01 0.01"/>
+          <!-- <cylinder radius="0.1" length="0.01" /> -->
+        </geometry>
+      </collision>
     </link>
-    <gazebo reference="${suffix}_link">
+    <!-- <transmission name="${suffix}_trans">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${suffix}_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${suffix}_motor">
+         <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+         <mechanismReduction>1</mechanismReduction>
+      </actuator>
+    </transmission> -->
+    <!-- <gazebo reference="${suffix}_link">
       <material>Gazebo/Red</material>
         <mu1 value="0.6" />
         <mu2 value="0.5" />
@@ -46,6 +53,6 @@
         <kd value="0.1" />
         <minDepth value="0.01"/>
         <maxVel value="10.0" />
-    </gazebo>
+    </gazebo> -->
   </xacro:macro>  
 </robot>

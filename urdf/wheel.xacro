@@ -1,15 +1,16 @@
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
 
-  <xacro:property name="pi" value="3.141592" />
+  <xacro:property name="pi" value="3.1415926835897931" />
 
   <xacro:macro name="wheel_macro" params="suffix parent x y yaw radius width">
+    <xacro:property name="mass" value="40" />
     <joint name="${suffix}_joint" type="continuous">
       <origin rpy="0 0 ${pi/2}" xyz="${x} ${y} 0"/>
       <parent link="${parent}"/>
       <child  link="${suffix}_link"/>
       <axis xyz="1 0 0"/>
       <dynamics damping="0.1"/>
-      <limit effort="10000" velocity="100" />
+      <limit effort="50000" velocity="50" />
       <joint_properties damping="0.0" friction="0.0" />
     </joint>
 
@@ -26,8 +27,8 @@
 
       <inertial>
         <origin xyz="0 0 0" rpy="0 0 0"/>
-        <mass value="40"/>
-        <inertia ixx="100.0"  ixy="0"  ixz="0" iyy="50.0" iyz="0" izz="50.0" />
+        <mass value="${mass}"/>
+        <inertia ixx="${mass*radius*radius/2}"  ixy="0"  ixz="0" iyy="${radius*radius*mass/4+width*width*mass/12}" iyz="0" izz="${radius*radius*mass/4+width*width*mass/12}" />
       </inertial>
       <collision>
         <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
@@ -36,7 +37,7 @@
         </geometry>
       </collision>
     </link>
-    <transmission name="${suffix}_trans">
+    <!-- <transmission name="${suffix}_trans">
       <type>transmission_interface/SimpleTransmission</type>
       <joint name="${suffix}_joint">
         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
@@ -45,15 +46,15 @@
          <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
          <mechanismReduction>1</mechanismReduction>
       </actuator>
-    </transmission>
-    <gazebo reference="${suffix}_link">
+    </transmission> -->
+    <!-- <gazebo reference="${suffix}_link">
       <material>Gazebo/Red</material>
-      <mu1 value="1.0" />
-      <mu2 value="1.0" />
-   		<kp value="1000000" />
+      <mu1 value="10000.0" />
+      <mu2 value="10000.0" />
+   		<kp value="100000" />
       <kd value="0.1" />
       <minDepth value="0.01" />
       <maxVel  value="100.0" /> 
-    </gazebo>
+    </gazebo> -->
   </xacro:macro>  
 </robot>

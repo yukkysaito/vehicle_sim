@@ -18,9 +18,14 @@
   <!-- load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
         output="screen" ns="/autoware" 
-        args="wheel_left_rear_velocity_controller wheel_right_rear_velocity_controller wheel_left_front_velocity_controller wheel_right_front_velocity_controller steering_left_front_position_controller steering_right_front_position_controller joint_state_controller"/>
+        args="wheel_left_rear_velocity_controller wheel_right_rear_velocity_controller steering_left_front_position_controller steering_right_front_position_controller joint_state_controller"/>
 
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+  <group ns="/autoware">
+    <node name="twist2gazebo" pkg="vehicle_model" type="twist2gazebo" respawn="false"
+          output="screen"/>
+  </group>
 
 </launch>
