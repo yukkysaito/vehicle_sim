@@ -4,20 +4,20 @@
   <transmission name="steering_left_front_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="steering_left_front_joint">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
     <actuator name="steering_left_front_motor">
-       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+       <hardwareInterface>EffortJointInterface</hardwareInterface>
        <mechanismReduction>1</mechanismReduction>
     </actuator>
   </transmission>
   <transmission name="steering_right_front_trans">
     <type>transmission_interface/SimpleTransmission</type>
     <joint name="steering_right_front_joint">
-      <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+      <hardwareInterface>EffortJointInterface</hardwareInterface>
     </joint>
     <actuator name="steering_right_front_motor">
-       <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+       <hardwareInterface>EffortJointInterface</hardwareInterface>
        <mechanismReduction>1</mechanismReduction>
     </actuator>
   </transmission>
