@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
   <!-- front steering -->
   <transmission name="steering_left_front_trans">
     <type>transmission_interface/SimpleTransmission</type>

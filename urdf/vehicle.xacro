@@ -1,6 +1,9 @@
+<?xml version="1.0"?>
 <robot name="autoware" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find vehicle_model)/urdf/body.xacro" />
   <xacro:include filename="$(find vehicle_model)/urdf/wheel.xacro" />
   <xacro:include filename="$(find vehicle_model)/urdf/steering.xacro" />
+
   <xacro:arg name="wheel_radius" default="0.341"/>
   <xacro:arg name="wheel_width" default="0.225"/>
   <xacro:arg name="wheel_base" default="2.950"/>
@@ -11,36 +14,19 @@
   <xacro:arg name="vehicle_height" default="1.5"/>
 
   <xacro:arg name="vehicle_mass_height" default="0.5"/>
-  <xacro:property name="pi" value="3.1415926835897931" />
+  <xacro:property name="pi" value="3.1415926835897931"/>
 
   <link name="base_link"/>
 
-  <joint name="base_joint" type="fixed">
-    <parent link="base_link"/>
-    <origin rpy="0 0 0" xyz="0 0 $(arg wheel_radius)"/>
-    <child  link="wheel_base_link"/>
-  </joint>  
-  <link name="wheel_base_link">
-    <inertial>
-      <origin xyz="${$(arg wheel_base)/2} 0 0" rpy="0 0 0"/>
-      <mass value="$(arg vehicle_mass)"/>
-      <inertia ixx="${($(arg vehicle_width)*$(arg vehicle_width)+$(arg vehicle_mass_height)*$(arg vehicle_mass_height))*$(arg vehicle_mass)/12.0}" ixy="0.0" ixz="0.0" 
-               iyy="${($(arg vehicle_length)*$(arg vehicle_length)+$(arg vehicle_mass_height)*$(arg vehicle_mass_height))*$(arg vehicle_mass)/12.0}" iyz="0.0" 
-               izz="${($(arg vehicle_width)*$(arg vehicle_width)+$(arg vehicle_length)*$(arg vehicle_length))*$(arg vehicle_mass)/12.0}"/>
-    </inertial>
-    <visual>
-      <origin xyz="${$(arg wheel_base)/2} 0 ${$(arg vehicle_height)/2}" rpy="0 0 0"/>
-      <geometry>
-        <box size="$(arg vehicle_length) $(arg vehicle_width) $(arg vehicle_height)"/>
-      </geometry>
-    </visual>
-    <collision>
-      <origin xyz="${$(arg wheel_base)/2} 0 ${$(arg vehicle_height)/2}" rpy="0 0 0"/>
-      <geometry>
-        <box size="$(arg vehicle_length) 0.9 $(arg vehicle_height)"/>
-      </geometry>
-    </collision>
-  </link>
+  <xacro:body_macro suffix="wheel_base"
+                    parent="base_link"
+                    wheel_radius="$(arg wheel_radius)"
+                    wheel_base="$(arg wheel_base)"
+                    vehicle_mass="$(arg vehicle_mass)"
+                    vehicle_mass_height="$(arg vehicle_mass_height)"
+                    vehicle_length="$(arg vehicle_length)"
+                    vehicle_width="$(arg vehicle_width)"
+                    vehicle_height="$(arg vehicle_height)"/>
 
   <xacro:steering_macro suffix="steering_right_front" parent="wheel_base_link" x="$(arg wheel_base)" y="${-1*$(arg wheel_tread)/2}" yaw="0" length="$(arg wheel_width)"/>
   <xacro:steering_macro suffix="steering_left_front" parent="wheel_base_link" x="$(arg wheel_base)" y="${$(arg wheel_tread)/2}" yaw="0" length="$(arg wheel_width)"/>
@@ -56,20 +42,5 @@
  	<xacro:include filename="$(find vehicle_model)/urdf/actuator.xacro"/>
 
   <!-- gazebo -->
- 	<xacro:include filename="$(find vehicle_model)/urdf/wheel.gazebo"/>
- 	<xacro:include filename="$(find vehicle_model)/urdf/steering.gazebo"/>
-  <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/autoware</robotNamespace>
-      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
-    </plugin>
-  </gazebo>
-  <gazebo>
-    <plugin filename="libgazebo_ros_joint_state_publisher.so" name="joint_state_publisher">
-      <jointName>wheel_left_rear_joint, wheel_right_rear_joint, steering_left_front_joint, steering_right_front_joint</jointName>
-      <updateRate>50.0</updateRate>
-      <robotNamespace>/autoware</robotNamespace>
-      <alwaysOn>true</alwaysOn>
-    </plugin>
-  </gazebo>
+ 	<xacro:include filename="$(find vehicle_model)/urdf/vehicle.gazebo"/>
 </robot>

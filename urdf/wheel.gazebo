@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<robot>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+
     <gazebo reference="wheel_left_rear_link">
       <material>Gazebo/Red</material>
       <mu1 value="10000.0" />

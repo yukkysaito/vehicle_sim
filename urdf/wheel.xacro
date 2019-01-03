@@ -1,5 +1,5 @@
+<?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-
   <xacro:property name="pi" value="3.1415926835897931" />
 
   <xacro:macro name="wheel_macro" params="suffix parent x y yaw radius width">
@@ -37,24 +37,5 @@
         </geometry>
       </collision>
     </link>
-    <!-- <transmission name="${suffix}_trans">
-      <type>transmission_interface/SimpleTransmission</type>
-      <joint name="${suffix}_joint">
-        <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-      </joint>
-      <actuator name="${suffix}_motor">
-         <hardwareInterface>hardware_interface/VelocityJointInterface</hardwareInterface>
-         <mechanismReduction>1</mechanismReduction>
-      </actuator>
-    </transmission> -->
-    <!-- <gazebo reference="${suffix}_link">
-      <material>Gazebo/Red</material>
-      <mu1 value="10000.0" />
-      <mu2 value="10000.0" />
-   		<kp value="100000" />
-      <kd value="0.1" />
-      <minDepth value="0.01" />
-      <maxVel  value="100.0" /> 
-    </gazebo> -->
   </xacro:macro>  
 </robot>
