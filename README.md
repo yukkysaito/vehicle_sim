@@ -22,3 +22,9 @@ $ sudo apt upgrade
 ```shell
 $ roslaunch vehicle_model gazebo_test.launch
 ```
+
+If GPU is available
+
+```shell
+$ roslaunch vehicle_model gazebo_test.launch gpu:=true
+```
