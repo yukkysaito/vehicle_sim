@@ -3,6 +3,8 @@
   <xacro:include filename="$(find vehicle_model)/urdf/body.xacro" />
   <xacro:include filename="$(find vehicle_model)/urdf/wheel.xacro" />
   <xacro:include filename="$(find vehicle_model)/urdf/steering.xacro" />
+  <xacro:include filename="$(find velodyne_description)/urdf/HDL-32E.urdf.xacro"/>
+  <xacro:include filename="$(find velodyne_description)/urdf/VLP-16.urdf.xacro"/>
 
   <xacro:arg name="wheel_radius" default="0.341"/>
   <xacro:arg name="wheel_width" default="0.225"/>
@@ -13,11 +15,14 @@
   <xacro:arg name="vehicle_width" default="1.81"/>
   <xacro:arg name="vehicle_height" default="1.5"/>
 
+  <xacro:arg name="gpu" default="false"/>
+
   <xacro:arg name="vehicle_mass_height" default="0.5"/>
   <xacro:property name="pi" value="3.1415926835897931"/>
 
   <link name="base_link"/>
 
+  <!-- vehicle -->
   <xacro:body_macro suffix="wheel_base"
                     parent="base_link"
                     wheel_radius="$(arg wheel_radius)"
@@ -27,14 +32,17 @@
                     vehicle_length="$(arg vehicle_length)"
                     vehicle_width="$(arg vehicle_width)"
                     vehicle_height="$(arg vehicle_height)"/>
-
   <xacro:steering_macro suffix="steering_right_front" parent="wheel_base_link" x="$(arg wheel_base)" y="${-1*$(arg wheel_tread)/2}" yaw="0" length="$(arg wheel_width)"/>
   <xacro:steering_macro suffix="steering_left_front" parent="wheel_base_link" x="$(arg wheel_base)" y="${$(arg wheel_tread)/2}" yaw="0" length="$(arg wheel_width)"/>
-
   <xacro:wheel_macro suffix="wheel_right_front" parent="steering_right_front_link" x="0" y="0" yaw="${pi}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
   <xacro:wheel_macro suffix="wheel_left_front" parent="steering_left_front_link" x="0" y="0" yaw="${0}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
   <xacro:wheel_macro suffix="wheel_right_rear" parent="wheel_base_link" x="0" y="${-1*$(arg wheel_tread)/2}" yaw="${pi}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
   <xacro:wheel_macro suffix="wheel_left_rear" parent="wheel_base_link" x="0" y="${$(arg wheel_tread)/2}" yaw="${0}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
+
+  <!-- sensor -->
+  <HDL-32E parent="base_link" name="velodyne" topic="/velodyne_points" hz="10" samples="220" gpu="$(arg gpu)">
+    <origin xyz="0 0 2.0" rpy="0 0 0" />
+  </HDL-32E>
 
   <!-- actuator -->
  	<xacro:include filename="$(find vehicle_model)/urdf/actuator.xacro"/>

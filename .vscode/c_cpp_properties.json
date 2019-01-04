@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "",
+        "limitSymbolsToIncludedHeaders": true
+      },
+      "includePath": [
+        "/home/yukihiro/workspace/catkin_ws/devel/include",
+        "/opt/ros/kinetic/include",
+        "/home/yukihiro/workspace/catkin_ws/src/ros_lecture/adv_lecture/include",
+        "/home/yukihiro/workspace/catkin_ws/src/amcl_3d/include",
+        "/home/yukihiro/workspace/catkin_ws/src/ros_lecture/plugin_lecture/include",
+        "/home/yukihiro/workspace/catkin_ws/src/vehicle_model/velodyne_simulator/velodyne_gazebo_plugins/include",
+        "/usr/include"
+      ],
+      "name": "Linux"
+    }
+  ]
+}
