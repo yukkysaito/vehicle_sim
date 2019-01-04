@@ -1,6 +1,6 @@
 # Download
 ```shell
-$ git clone https://github.com/yukkysaito/vehicle_model.git --recurse-submodules
+$ git clone https://github.com/yukkysaito/vehicle_sim.git --recurse-submodules
 ```
 or if you already have a copy of the repo, run `$ git submodule update --init --recursive`.
 # Requirements
