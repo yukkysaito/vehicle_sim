@@ -10,6 +10,7 @@ The following sensors are simulated.
 
 # Download
 ```shell
+$ cd "your catkin workspace/src/"
 $ git clone https://github.com/yukkysaito/vehicle_sim.git --recurse-submodules
 ```
 or if you already have a copy of the repo, run `$ git submodule update --init --recursive`.
@@ -27,6 +28,12 @@ $ sudo apt upgrade
 ```
 
 # How to use
+1. build
+
+```shell
+$ cakin_make
+```
+
 1. launch gazebo
 
 ```shell
