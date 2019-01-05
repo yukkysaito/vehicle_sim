@@ -5,6 +5,8 @@ The following sensors are simulated.
 - camera
 - imu
 ![github](https://user-images.githubusercontent.com/8327598/50725047-dc1a5780-113a-11e9-9487-ae0c6b67b47d.png)
+(Banana and tire visualization models are not in the repository due to copyright relationship. Although it looks different, it does not affect the motion)
+
 
 # Download
 ```shell
