@@ -8,49 +8,68 @@
   <xacro:include filename="$(find camera_description)/urdf/monocular_camera.xacro"/>
   <xacro:include filename="$(find imu_description)/urdf/imu.xacro"/>
 
-  <xacro:arg name="wheel_radius" default="0.341"/>
-  <xacro:arg name="wheel_width" default="0.225"/>
-  <xacro:arg name="wheel_base" default="2.950"/>
-  <xacro:arg name="wheel_tread" default="1.55"/>
-  <xacro:arg name="vehicle_mass" default="5000.0"/>
-  <xacro:arg name="vehicle_length" default="4.82"/>
-  <xacro:arg name="vehicle_width" default="1.81"/>
-  <xacro:arg name="vehicle_height" default="1.5"/>
-
   <xacro:arg name="gpu" default="false"/>
 
-  <xacro:arg name="vehicle_mass_height" default="0.5"/>
   <xacro:property name="pi" value="3.1415926835897931"/>
 
   <link name="base_link"/>
 
-  <!-- vehicle -->
+  <!-- ================ vehicle ================ -->
+  <!-- load parameter -->
+	<xacro:property name="vehicle_info" value="${load_yaml('$(find vehicle_model)/config/vehicle_info.yaml')}"/>
+  <!-- set parameter -->
+	<xacro:property name="wheel_radius" value="${vehicle_info['wheel_radius']}"/>
+  <xacro:property name="wheel_width" value="${vehicle_info['wheel_width']}"/>
+  <xacro:property name="wheel_base" value="${vehicle_info['wheel_base']}"/>
+  <xacro:property name="wheel_tread" value="${vehicle_info['wheel_tread']}"/>
+  <xacro:property name="vehicle_mass" value="${vehicle_info['vehicle_mass']}"/>
+  <xacro:property name="vehicle_length" value="${vehicle_info['vehicle_length']}"/>
+  <xacro:property name="vehicle_width" value="${vehicle_info['vehicle_width']}"/>
+  <xacro:property name="vehicle_height" value="${vehicle_info['vehicle_height']}"/>
+
+  <xacro:property name="vehicle_mass_height" value="0.5"/>
+
   <xacro:body_macro suffix="wheel_base"
                     parent="base_link"
-                    wheel_radius="$(arg wheel_radius)"
-                    wheel_base="$(arg wheel_base)"
-                    vehicle_mass="$(arg vehicle_mass)"
-                    vehicle_mass_height="$(arg vehicle_mass_height)"
-                    vehicle_length="$(arg vehicle_length)"
-                    vehicle_width="$(arg vehicle_width)"
-                    vehicle_height="$(arg vehicle_height)"/>
-  <xacro:steering_macro suffix="steering_right_front" parent="wheel_base_link" x="$(arg wheel_base)" y="${-1*$(arg wheel_tread)/2}" yaw="0" length="$(arg wheel_width)"/>
-  <xacro:steering_macro suffix="steering_left_front" parent="wheel_base_link" x="$(arg wheel_base)" y="${$(arg wheel_tread)/2}" yaw="0" length="$(arg wheel_width)"/>
-  <xacro:wheel_macro suffix="wheel_right_front" parent="steering_right_front_link" x="0" y="0" yaw="${pi}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
-  <xacro:wheel_macro suffix="wheel_left_front" parent="steering_left_front_link" x="0" y="0" yaw="${0}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
-  <xacro:wheel_macro suffix="wheel_right_rear" parent="wheel_base_link" x="0" y="${-1*$(arg wheel_tread)/2}" yaw="${pi}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
-  <xacro:wheel_macro suffix="wheel_left_rear" parent="wheel_base_link" x="0" y="${$(arg wheel_tread)/2}" yaw="${0}" radius="$(arg wheel_radius)" width="$(arg wheel_width)"/>
-
-  <!-- sensor -->
-  <HDL-32E parent="base_link" name="velodyne" topic="/velodyne_points" hz="10" samples="220" gpu="$(arg gpu)">
-    <origin xyz="0 0 2.0" rpy="0 0 0" />
-  </HDL-32E>
-  <xacro:monocular_camera_macro suffix="camera" parent="base_link" namespace="" x="0" y="0" z="2.5" roll="0" pitch="0" yaw="0"  fps="30" width="800" height="400" fov="1.3"/>
-  <xacro:imu_macro suffix="imu" parent="base_link" namespace="" x="0" y="0" z="2.6" roll="0" pitch="0" yaw="0"  fps="100" />
-
+                    wheel_radius="${wheel_radius}"
+                    wheel_base="${wheel_base}"
+                    vehicle_mass="${vehicle_mass}"
+                    vehicle_mass_height="${vehicle_mass_height}"
+                    vehicle_length="${vehicle_length}"
+                    vehicle_width="${vehicle_width}"
+                    vehicle_height="${vehicle_height}"/>
+  <xacro:steering_macro suffix="steering_right_front" parent="wheel_base_link" x="${wheel_base}" y="${-1*wheel_tread/2}" yaw="0" length="${wheel_width}"/>
+  <xacro:steering_macro suffix="steering_left_front" parent="wheel_base_link" x="${wheel_base}" y="${wheel_tread/2}" yaw="0" length="${wheel_width}"/>
+  <xacro:wheel_macro suffix="wheel_right_front" parent="steering_right_front_link" x="0" y="0" yaw="${pi}" radius="${wheel_radius}" width="${wheel_width}"/>
+  <xacro:wheel_macro suffix="wheel_left_front" parent="steering_left_front_link" x="0" y="0" yaw="0" radius="${wheel_radius}" width="${wheel_width}"/>
+  <xacro:wheel_macro suffix="wheel_right_rear" parent="wheel_base_link" x="0" y="${-1*wheel_tread/2}" yaw="${pi}" radius="${wheel_radius}" width="${wheel_width}"/>
+  <xacro:wheel_macro suffix="wheel_left_rear" parent="wheel_base_link" x="0" y="${wheel_tread/2}" yaw="0" radius="${wheel_radius}" width="${wheel_width}"/>
   <!-- actuator -->
  	<xacro:include filename="$(find vehicle_model)/urdf/actuator.xacro"/>
-
   <!-- gazebo -->
  	<xacro:include filename="$(find vehicle_model)/urdf/vehicle.gazebo"/>
+
+  <!-- ================ sensor ================ -->
+	<xacro:property name="calibration" value="${load_yaml('$(find vehicle_model)/config/calibration.yaml')}"/>
+  <HDL-32E parent="base_link" name="velodyne" topic="/velodyne_points" hz="10" samples="220" gpu="$(arg gpu)">
+    <origin xyz="${calibration['base_link2velodyne']['x']} ${calibration['base_link2velodyne']['y']} ${calibration['base_link2velodyne']['z']}" 
+            rpy="${calibration['base_link2velodyne']['roll']} ${calibration['base_link2velodyne']['pitch']} ${calibration['base_link2velodyne']['yaw']}" />
+  </HDL-32E>
+  <xacro:monocular_camera_macro suffix="camera" parent="base_link" namespace="" 
+                                x="${calibration['base_link2camera']['x']}"
+                                y="${calibration['base_link2camera']['y']}"
+                                z="${calibration['base_link2camera']['z']}"
+                                roll="${calibration['base_link2camera']['roll']}"
+                                pitch="${calibration['base_link2camera']['pitch']}"
+                                yaw="${calibration['base_link2camera']['yaw']}"
+                                fps="30" width="800" height="400" fov="1.3"/>
+  <xacro:imu_macro suffix="imu" parent="base_link" namespace=""
+                   x="${calibration['base_link2imu']['x']}"
+                   y="${calibration['base_link2imu']['y']}"
+                   z="${calibration['base_link2imu']['z']}"
+                   roll="${calibration['base_link2imu']['roll']}"
+                   pitch="${calibration['base_link2imu']['pitch']}"
+                   yaw="${calibration['base_link2imu']['yaw']}"
+                   fps="100" />
+
 </robot>

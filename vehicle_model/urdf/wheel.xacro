@@ -1,8 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:property name="pi" value="3.1415926835897931" />
-
   <xacro:macro name="wheel_macro" params="suffix parent x y yaw radius width">
+    <xacro:property name="pi" value="3.1415926835897931" />
     <xacro:property name="mass" value="40" />
     <joint name="${suffix}_joint" type="continuous">
       <origin rpy="0 0 ${pi/2}" xyz="${x} ${y} 0"/>

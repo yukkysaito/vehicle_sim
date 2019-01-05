@@ -1,9 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:property name="pi" value="3.1415926835897931" />
-
-
   <xacro:macro name="steering_macro" params="suffix parent x y yaw length">
+    <xacro:property name="pi" value="3.1415926835897931" />
     <xacro:property name="radius" value="0.1" />
     <xacro:property name="length" value="0.01" />
     <xacro:property name="mass" value="10.0" />
