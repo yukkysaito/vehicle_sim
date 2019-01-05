@@ -4,6 +4,7 @@ The following sensors are simulated.
 - velodyne (VLP-16, HDL-32E)
 - camera
 - imu
+![github](https://user-images.githubusercontent.com/8327598/50725047-dc1a5780-113a-11e9-9487-ae0c6b67b47d.png)
 
 # Download
 ```shell
