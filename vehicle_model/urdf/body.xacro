@@ -16,23 +16,18 @@
                  izz="${(vehicle_width*vehicle_width+vehicle_length*vehicle_length)*vehicle_mass/12.0}"/>
       </inertial>
       <visual>
-        <origin xyz="${wheel_base/2} 0 ${vehicle_height/2}" rpy="0 ${-pi/2} ${pi/2}"/>
+        <origin xyz="${wheel_base/2} 0 ${vehicle_height/2}" rpy="0 0 0"/>
+        <geometry>
+          <box size="${vehicle_length} 0.9 ${vehicle_height}"/>
+        </geometry>
+        <!-- <origin xyz="${wheel_base/2} 0 ${vehicle_height/2}" rpy="0 ${-pi/2} ${pi/2}"/>
         <geometry>
           <mesh filename="package://vehicle_model/dae/banana.dae" scale="0.7 0.7 0.7"/>
         </geometry>
         <material name="black">
             <color rgba="0.1 0.1 0.1 2.0"/>
-        </material>
+        </material> -->
       </visual>
-      <!-- <visual>
-        <origin xyz="${wheel_base/2} 0 ${vehicle_height/2}" rpy="0 0 0"/>
-        <geometry>
-          <box size="${vehicle_length} ${vehicle_width} ${vehicle_height}"/>
-        </geometry>
-        <material name="black">
-            <color rgba="0.1 0.1 0.1 2.0"/>
-        </material>
-      </visual> -->
       <collision>
         <origin xyz="${wheel_base/2} 0 ${vehicle_height/2}" rpy="0 0 0"/>
         <geometry>
