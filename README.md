@@ -28,3 +28,7 @@ If GPU is available
 ```shell
 $ roslaunch vehicle_model gazebo_test.launch gpu:=true
 ```
+
+# How to change config
+- Change sensor position: *config/caibration.yaml*
+- Change vehicle info: *config/vehicle_info.yaml*
