@@ -1,3 +1,10 @@
+# Overview
+Autonomous driving car simulator based on gazebo.
+The following sensors are simulated.
+- velodyne (VLP-16, HDL-32E)
+- camera
+- imu
+
 # Download
 ```shell
 $ git clone https://github.com/yukkysaito/vehicle_sim.git --recurse-submodules
