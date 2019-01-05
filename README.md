@@ -1,3 +1,11 @@
+# Overview
+Autonomous driving car simulator based on gazebo.
+The following sensors are simulated.
+- velodyne (VLP-16, HDL-32E)
+- camera
+- imu
+![github](https://user-images.githubusercontent.com/8327598/50725047-dc1a5780-113a-11e9-9487-ae0c6b67b47d.png)
+
 # Download
 ```shell
 $ git clone https://github.com/yukkysaito/vehicle_sim.git --recurse-submodules
@@ -28,3 +36,7 @@ If GPU is available
 ```shell
 $ roslaunch vehicle_model gazebo_test.launch gpu:=true
 ```
+
+# How to change config
+- Change sensor position: *config/caibration.yaml*
+- Change vehicle info: *config/vehicle_info.yaml*
