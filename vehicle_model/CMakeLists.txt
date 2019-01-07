@@ -5,6 +5,7 @@ add_compile_options(-std=c++11)
 
 find_package(catkin REQUIRED
   controller_manager
+  effort_controllers
   gazebo_ros_control
   geometry_msgs
   position_controllers
@@ -14,6 +15,7 @@ find_package(catkin REQUIRED
   tf
   transmission_interface
   velocity_controllers
+  joint_state_controller
 )
 
 
