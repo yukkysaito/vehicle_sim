@@ -20,6 +20,7 @@ or if you already have a copy of the repo, run `$ git submodule update --init --
 1. build
 
 ```shell
+$ rosdep install --from-paths <vehicle_sim/vehicle_model path> -y
 $ cakin_make
 $ source "your catkin workspace"/devel/setup.bash
 ```
@@ -27,7 +28,7 @@ $ source "your catkin workspace"/devel/setup.bash
 2. upgrade gazebo version and download gazebo models(**only once**)
    -  reason : https://bitbucket.org/DataspeedInc/velodyne_simulator/src/56d11e899ce0a198e7206298b3aaaf8004f3a2c6/gazebo_upgrade.md?fileviewer=file-view-default
 ```
-$ rosrun vehicle_sim setup.sh
+$ rosrun vehicle_model setup.sh
 ```
 
 3. launch gazebo
