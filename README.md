@@ -14,6 +14,7 @@ $ cd "your catkin workspace/src/"
 $ git clone https://github.com/yukkysaito/vehicle_sim.git --recurse-submodules
 ```
 or if you already have a copy of the repo, run `$ git submodule update --init --recursive`.
+
 # Requirements
 1. download gazebo models
 https://gist.github.com/awesomebytes/982166e825aa23ecdaf9acf34fa0a330
@@ -45,6 +46,9 @@ If GPU is available
 ```shell
 $ roslaunch vehicle_model gazebo_test.launch gpu:=true
 ```
+
+**If you need pointcloud map, you can download following url**
+https://drive.google.com/file/d/1F3Mf0EZsIB29FDeSqH71nEo_p37lKfrm/view?usp=sharing
 
 # How to change config
 - Change sensor position: *config/caibration.yaml*
