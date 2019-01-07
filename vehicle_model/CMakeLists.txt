@@ -52,6 +52,10 @@ add_executable(twist2gazebo src/twist2gazebo.cpp)
 add_dependencies(twist2gazebo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(twist2gazebo ${catkin_LIBRARIES})
 
+add_executable(twiststamped2gazebo src/twist2gazebo.cpp)
+add_dependencies(twiststamped2gazebo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(twiststamped2gazebo ${catkin_LIBRARIES})
+
 #############
 ## Install ##
 #############
