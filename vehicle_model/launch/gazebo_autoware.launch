@@ -30,8 +30,7 @@
       <remap from="joint_states" to="$(arg ns)/joint_states"/>
   </node>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
-  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="world2map" args="0 0 0 0 0 0 0 world map" />
 
   <group ns="$(arg ns)">
     <rosparam file="$(find vehicle_model)/config/vehicle_info.yaml" command="load"/>
