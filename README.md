@@ -16,17 +16,21 @@ $ git clone https://github.com/yukkysaito/vehicle_sim.git --recurse-submodules
 or if you already have a copy of the repo, run `$ git submodule update --init --recursive`.
 
 # How to use
+
 1. build
 
 ```shell
 $ cakin_make
 $ source "your catkin workspace"/devel/setup.bash
 ```
-1. upgrade gazebo version and download gazebo models
+
+2. upgrade gazebo version and download gazebo models(**only once**)
+   -  reason : https://bitbucket.org/DataspeedInc/velodyne_simulator/src/56d11e899ce0a198e7206298b3aaaf8004f3a2c6/gazebo_upgrade.md?fileviewer=file-view-default
 ```
 $ rosrun vehicle_sim setup.sh
 ```
-1. launch gazebo
+
+3. launch gazebo
 
 ```shell
 $ roslaunch vehicle_model gazebo_test.launch
