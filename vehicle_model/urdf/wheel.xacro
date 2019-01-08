@@ -15,15 +15,11 @@
 
     <link name="${suffix}_link">
       <visual>
-        <origin xyz="0 0 0" rpy="0 ${pi/2} 0"/>
         <geometry>
-          <cylinder radius="${radius}" length="${width}" />
+          <mesh filename="package://vehicle_model/dae/wheel.dae" scale="${3*radius} ${3*radius} ${3*radius}"/>
         </geometry>
-        <!-- <geometry>
-          <mesh filename="package://vehicle_model/dae/wheel.dae" scale="${0.01173*radius} ${0.01173*radius} ${0.01173*radius}"/>
-        </geometry>
-        <origin xyz="0 0 0" rpy="0 0 ${yaw}"/> -->
-        <material name="black">
+        <origin xyz="0 0 0" rpy="0 0 ${yaw}"/>
+        <material name="gray">
           <color rgba="0.1 0.1 0.1 2.0"/>
         </material>
       </visual>
