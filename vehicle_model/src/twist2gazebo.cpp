@@ -37,7 +37,7 @@ void Twist2GazeboController::callback(const geometry_msgs::Twist::ConstPtr &inpu
     std_msgs::Float64 output_wheel_right_rear, output_wheel_left_rear, output_steering_right_front, output_steering_left_front;
     output_wheel_right_rear.data = input_twist_msg->linear.x / wheel_radius_;
     output_wheel_left_rear.data = input_twist_msg->linear.x / wheel_radius_;
-    double vref_rear = input_twist_msg->linear.x / wheel_radius_;
+    double vref_rear = input_twist_msg->linear.x;
     if (std::fabs(vref_rear) < 0.01)
     {
         vref_rear = 0.0 < vref_rear ? 0.01 : -0.01;
