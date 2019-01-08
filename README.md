@@ -43,8 +43,8 @@ If GPU is available
 $ roslaunch vehicle_model gazebo_test.launch gpu:=true
 ```
 
-**If you need pointcloud map, you can download following url**
-https://drive.google.com/file/d/1F3Mf0EZsIB29FDeSqH71nEo_p37lKfrm/view?usp=sharing
+**If you need pointcloud map and path files for Autoware, you can download following url**
+https://drive.google.com/drive/folders/1yu8s885HDkJp3IbMV06KWim2ZdUxIoIF?usp=sharing
 
 # How to change config
 - Change sensor position: *config/caibration.yaml*
