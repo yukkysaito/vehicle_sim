@@ -1,3 +1,4 @@
+<?xml version="1.0" ?>
 <sdf version='1.6'>
   <world name='default'>
     <light name='sun' type='directional'>
@@ -13,6 +14,22 @@
       </attenuation>
       <direction>-0.5 0.5 -1</direction>
     </light>
+    <scene>
+      <grid>false</grid>
+      <origin_visual>false</origin_visual>
+      <ambient>0.592 0.624 0.635 1</ambient>
+      <sky>
+        <clouds>
+          <speed>12</speed>
+        </clouds>
+      </sky>
+      <background>0.35 0.35 0.35 1.0</background>
+    </scene>
+    <gui>
+     <camera name="user_camera">
+       <pose>-49.08 -1.911 6.95 0 0 -0.0159</pose>
+     </camera>
+    </gui>
     <model name='ground_plane'>
       <static>1</static>
       <link name='link'>
