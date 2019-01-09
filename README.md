@@ -34,7 +34,7 @@ $ rosrun vehicle_model setup.sh
 3. launch gazebo
 
 ```shell
-$ roslaunch vehicle_model gazebo_test.launch
+$ roslaunch vehicle_model world_test.launch
 ```
 
 If GPU is available
