@@ -34,13 +34,13 @@ $ rosrun vehicle_model setup.sh
 3. launch gazebo
 
 ```shell
-$ roslaunch vehicle_model gazebo_test.launch
+$ roslaunch vehicle_model world_test.launch
 ```
 
 If GPU is available
 
 ```shell
-$ roslaunch vehicle_model gazebo_test.launch gpu:=true
+$ roslaunch vehicle_model world_test.launch gpu:=true
 ```
 
 **If you need pointcloud map and path files for Autoware, you can download following url**
