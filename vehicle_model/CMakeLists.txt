@@ -13,9 +13,12 @@ find_package(catkin REQUIRED
   sensor_msgs
   std_msgs
   tf
+  tf2
+  tf2_geometry_msgs
   transmission_interface
   velocity_controllers
   joint_state_controller
+  gazebo_msgs
 )
 
 
@@ -34,8 +37,11 @@ catkin_package(
     sensor_msgs
     std_msgs
     tf
+    tf2
+    tf2_geometry_msgs
     transmission_interface
     velocity_controllers
+    gazebo_msgs
 #  DEPENDS system_lib
 )
 
@@ -56,6 +62,10 @@ add_executable(twiststamped2gazebo src/twiststamped2gazebo.cpp)
 add_dependencies(twiststamped2gazebo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(twiststamped2gazebo ${catkin_LIBRARIES})
 
+add_executable(vehicle_info_publisher src/vehicle_info_publisher.cpp)
+add_dependencies(vehicle_info_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(vehicle_info_publisher ${catkin_LIBRARIES})
+
 #############
 ## Install ##
 #############
@@ -72,7 +82,7 @@ install(DIRECTORY urdf
 install(DIRECTORY config
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
-install(TARGETS twist2gazebo
+install(TARGETS twist2gazebo twiststamped2gazebo vehicle_info_publisher
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
