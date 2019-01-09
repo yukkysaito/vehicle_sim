@@ -33,7 +33,7 @@
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
   <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering" />
 
-  <group ns="$(arg ns)">
+  <group>
     <rosparam file="$(find vehicle_model)/config/vehicle_info.yaml" command="load"/>
     <node name="twist2gazebo" pkg="vehicle_model" type="twist2gazebo" respawn="false"
           output="screen">
@@ -42,6 +42,9 @@
     <node name="twiststamped2gazebo" pkg="vehicle_model" type="twiststamped2gazebo" respawn="false"
           output="screen">
       <remap from="cmd_vel" to="/twist_cmd"/>
+    </node>
+    <node name="vehicle_info_publisher" pkg="vehicle_model" type="vehicle_info_publisher" respawn="false"
+          output="screen">
     </node>
   </group>
 
