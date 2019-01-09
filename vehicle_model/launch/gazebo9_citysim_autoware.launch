@@ -8,7 +8,7 @@
   <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" default="$(find vehicle_model)/world/autoware.world"/> 
+    <arg name="world_name" default="$(find vehicle_model)/worlds/citysim_gazebo9.world"/> 
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
@@ -16,7 +16,7 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model autoware" />
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -x 0 -y 0 -z 0.5 -model autoware" />
 
   <!-- Load joint controller configurations from YAML file to parameter server -->
   <rosparam file="$(find vehicle_model)/config/controller.yaml" command="load" ns="/autoware"/>
@@ -30,8 +30,7 @@
       <remap from="joint_states" to="$(arg ns)/joint_states"/>
   </node>
 
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
-  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering" />
+  <node pkg="tf2_ros" type="static_transform_publisher" name="world2map" args="0 0 0 0 0 0 world map" />
 
   <group ns="$(arg ns)">
     <rosparam file="$(find vehicle_model)/config/vehicle_info.yaml" command="load"/>

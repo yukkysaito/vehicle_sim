@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+  <arg name="model" default="$(find vehicle_model)/urdf/vehicle.xacro"/>
+  <arg name="ns" default="/autoware"/>
+  <arg name="gpu" default="false"/>
+  <param name="robot_description" command="$(find xacro)/xacro.py --inorder $(arg model) gpu:=$(arg gpu)" />
+  <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" default="$(find vehicle_model)/worlds/autoware.world"/> 
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
+
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model autoware" />
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find vehicle_model)/config/controller.yaml" command="load" ns="/autoware"/>
+  
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+        output="screen" ns="/autoware" 
+        args="wheel_left_rear_velocity_controller wheel_right_rear_velocity_controller steering_left_front_position_controller steering_right_front_position_controller joint_state_controller"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+      <remap from="joint_states" to="$(arg ns)/joint_states"/>
+  </node>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+  <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering" />
+
+  <group ns="$(arg ns)">
+    <rosparam file="$(find vehicle_model)/config/vehicle_info.yaml" command="load"/>
+    <node name="twist2gazebo" pkg="vehicle_model" type="twist2gazebo" respawn="false"
+          output="screen">
+      <remap from="cmd_vel" to="/cmd_vel"/>
+    </node>
+    <node name="twiststamped2gazebo" pkg="vehicle_model" type="twiststamped2gazebo" respawn="false"
+          output="screen">
+      <remap from="cmd_vel" to="/twist_cmd"/>
+    </node>
+  </group>
+
+</launch>
