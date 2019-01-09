@@ -8,7 +8,7 @@
   <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" default="$(find vehicle_model)/worlds/citysim_gazebo7.world"/> 
+    <arg name="world_name" default="$(find vehicle_model)/../external_models/osrf_citysim/worlds/citysim_gazebo7.world"/> 
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
