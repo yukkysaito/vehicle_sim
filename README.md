@@ -47,18 +47,26 @@ $ roslaunch vehicle_model world_test.launch gpu:=true
 [![](https://img.youtube.com/vi/JViNKB_igI4/0.jpg)](https://www.youtube.com/watch?v=JViNKB_igI4)
 
 # Some example
-- **Citysim** : http://gazebosim.org/blog/car_sim
+## **Citysim** : http://gazebosim.org/blog/car_sim
 ```
 $ roslaunch vehicle_model gazebo7_citysim.launch gpu:=true
 ```
+
+
+If you use gazebo9, simulate traffic lights and moving objects.
+Build according to the [readme](https://github.com/yukkysaito/osrf_citysim/tree/9356b76bd827a3afcb71000b9274e3f64713a77c) and execute the following command
+```
+$ roslaunch vehicle_model gazebo9_citysim.launch gpu:=true
+```
+
 ![screenshot from 2019-01-11 00-40-35-min](https://user-images.githubusercontent.com/8327598/50985197-19ba1e80-1547-11e9-98d1-284b3172c064.png)
-- **mcity(car_demo)** : https://github.com/osrf/car_demo
+## **mcity(car_demo)** : https://github.com/osrf/car_demo
 ```
 $ roslaunch vehicle_model gazebo_mcity.launch gpu:=true
 ```
 ![screenshot from 2019-01-11 00-38-49-min](https://user-images.githubusercontent.com/8327598/50985258-3e15fb00-1547-11e9-91d4-3b826b82136e.png)
 
-- **Connect to Autoware** : https://github.com/CPFL/Autoware
+## **Connect to Autoware** : https://github.com/CPFL/Autoware
 If you need pointcloud map and path files, you can download following url
 https://drive.google.com/drive/folders/1yu8s885HDkJp3IbMV06KWim2ZdUxIoIF?usp=sharing
 ```
