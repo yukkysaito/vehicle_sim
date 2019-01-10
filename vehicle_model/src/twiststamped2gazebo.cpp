@@ -46,12 +46,12 @@ void TwistStamped2GazeboController::callback(const geometry_msgs::TwistStamped::
     {
         vref_rear = 0.0 < vref_rear ? 0.01 : -0.01;
     }
-
-    double delta_ref = std::atan(input_twist_msg->twist.angular.z * wheel_base_ / vref_rear);
     if (M_PI/2.0 < std::fabs(vref_rear))
     {
         vref_rear = 0.0 < vref_rear ? M_PI/2.0 : -M_PI/2.0;
     }
+
+    double delta_ref = std::atan(input_twist_msg->twist.angular.z * wheel_base_ / vref_rear);
     output_steering_right_front.data = std::atan(std::tan(delta_ref) / (1.0 + (wheel_tread_ / (2.0 * wheel_base_)) * std::tan(delta_ref)));
     output_steering_left_front.data = std::atan(std::tan(delta_ref) / (1.0 - (wheel_tread_ / (2.0 * wheel_base_)) * std::tan(delta_ref)));
     wheel_right_rear_pub_.publish(output_wheel_right_rear);

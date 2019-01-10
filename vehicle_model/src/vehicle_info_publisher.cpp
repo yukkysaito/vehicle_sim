@@ -35,6 +35,7 @@ VehicleInfoPublisher::VehicleInfoPublisher() : nh_(""), pnh_("~")
     pnh_.param<double>("publish_rate", publish_rate, double(100.0));
     publish_timer_ = nh_.createTimer(ros::Duration(1.0 / publish_rate), &VehicleInfoPublisher::publishTimerCallback, this);
 }
+
 void VehicleInfoPublisher::publishTimerCallback(const ros::TimerEvent &e)
 {
     gazebo_msgs::GetLinkState wheel_right_front_link_srv;
@@ -63,18 +64,22 @@ void VehicleInfoPublisher::publishTimerCallback(const ros::TimerEvent &e)
     geometry_msgs::TwistStamped output_twist;
     geometry_msgs::PoseStamped output_pose;
     std_msgs::Float64 output_steering_angle;
+
     output_twist.header.frame_id = "base_link";
     output_twist.header.stamp = current_time;
     output_twist.twist = base_link_srv.response.link_state.twist;
+   
     output_pose.header.frame_id = "base_link";
     output_pose.header.stamp = current_time;
     output_pose.pose = base_link_srv.response.link_state.pose;
+  
     output_steering_angle.data = wheel_angle;
 
     vehicle_twist_pub_.publish(output_twist);
     vehicle_pose_pub_.publish(output_pose);
     steering_angle_pub_.publish(output_steering_angle);
 }
+
 int main(int argc, char *argv[])
 {
     ros::init(argc, argv, "vehicle_info_publisher");
