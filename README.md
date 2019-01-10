@@ -17,7 +17,7 @@ $ git clone https://github.com/yukkysaito/vehicle_sim.git --recurse-submodules
 ```
 or if you already have a copy of the repo, run `$ git submodule update --init --recursive`.
 
-# How to use
+# How to use (Example)
 
 1. build
 
@@ -44,10 +44,13 @@ If GPU is available
 ```shell
 $ roslaunch vehicle_model world_test.launch gpu:=true
 ```
+https://youtu.be/JViNKB_igI4
+
 
 **If you need pointcloud map and path files for Autoware, you can download following url**
 https://drive.google.com/drive/folders/1yu8s885HDkJp3IbMV06KWim2ZdUxIoIF?usp=sharing
 
-# How to change config
-- Change sensor position: *config/caibration.yaml*
-- Change vehicle info: *config/vehicle_info.yaml*
+# How to change vehicle info
+You can customize sensor position and vehicle info.
+- sensor position: config/caibration.yaml
+- vehicle info: config/vehicle_info.yaml
