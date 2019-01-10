@@ -12,15 +12,10 @@ find_package(catkin REQUIRED
   roscpp
   sensor_msgs
   std_msgs
-  tf
-  tf2
-  tf2_geometry_msgs
   transmission_interface
   velocity_controllers
   joint_state_controller
   gazebo_msgs
-  nav_msgs
-  diff_drive_controller
 )
 
 
@@ -38,14 +33,9 @@ catkin_package(
     roscpp
     sensor_msgs
     std_msgs
-    tf
-    tf2
-    tf2_geometry_msgs
     transmission_interface
     velocity_controllers
     gazebo_msgs
-    nav_msgs
-    diff_drive_controller
 #  DEPENDS system_lib
 )
 

@@ -8,7 +8,8 @@ class TwistStamped2GazeboController
   private:
     ros::NodeHandle nh_;
     ros::NodeHandle pnh_;
-    ros::Publisher wheel_rear_pub_;
+    ros::Publisher wheel_right_rear_pub_;
+    ros::Publisher wheel_left_rear_pub_;
     ros::Publisher steering_right_front_pub_;
     ros::Publisher steering_left_front_pub_;
     ros::Subscriber sub_;
@@ -16,7 +17,7 @@ class TwistStamped2GazeboController
 
     double wheel_base_;
     double wheel_tread_;
-
+    double wheel_radius_;
   public:
     TwistStamped2GazeboController();
     ~TwistStamped2GazeboController(){};
@@ -26,18 +27,20 @@ TwistStamped2GazeboController::TwistStamped2GazeboController() : nh_(""), pnh_("
 {
 
     nh_.param("wheel_base", wheel_base_, 2.95);
+    nh_.param("wheel_radius", wheel_radius_, 0.341);
     nh_.param("wheel_tread", wheel_tread_, 1.55);
-    wheel_rear_pub_ = nh_.advertise<geometry_msgs::Twist>("diff_drive_controller/cmd_vel", 1, true);
+    wheel_right_rear_pub_ = nh_.advertise<std_msgs::Float64>("wheel_right_rear_velocity_controller/command", 1, true);
+    wheel_left_rear_pub_ = nh_.advertise<std_msgs::Float64>("wheel_left_rear_velocity_controller/command", 1, true);
     steering_right_front_pub_ = nh_.advertise<std_msgs::Float64>("steering_right_front_position_controller/command", 1, true);
     steering_left_front_pub_ = nh_.advertise<std_msgs::Float64>("steering_left_front_position_controller/command", 1, true);
     sub_ = nh_.subscribe("cmd_vel", 1, &TwistStamped2GazeboController::callback, this);
 }
 void TwistStamped2GazeboController::callback(const geometry_msgs::TwistStamped::ConstPtr &input_twist_msg)
 {
-    std_msgs::Float64 output_steering_right_front, output_steering_left_front;
-    geometry_msgs::Twist output_wheel_rear;
-    output_wheel_rear.linear.x = input_twist_msg->twist.linear.x;
-
+    std_msgs::Float64 output_wheel_right_rear, output_wheel_left_rear, output_steering_right_front, output_steering_left_front;
+    output_wheel_right_rear.data = input_twist_msg->twist.linear.x / wheel_radius_;
+    output_wheel_left_rear.data = input_twist_msg->twist.linear.x / wheel_radius_;
+    
     double vref_rear = input_twist_msg->twist.linear.x;
     if (std::fabs(vref_rear) < 0.01)
     {
@@ -52,7 +55,8 @@ void TwistStamped2GazeboController::callback(const geometry_msgs::TwistStamped::
     output_steering_right_front.data = std::atan(std::tan(delta_ref) / (1.0 + (wheel_tread_ / (2.0 * wheel_base_)) * std::tan(delta_ref)));
     output_steering_left_front.data = std::atan(std::tan(delta_ref) / (1.0 - (wheel_tread_ / (2.0 * wheel_base_)) * std::tan(delta_ref)));
 
-    wheel_rear_pub_.publish(output_wheel_rear);
+    wheel_right_rear_pub_.publish(output_wheel_right_rear);
+    wheel_left_rear_pub_.publish(output_wheel_left_rear);
     steering_right_front_pub_.publish(output_steering_right_front);
     steering_left_front_pub_.publish(output_steering_left_front);
 }

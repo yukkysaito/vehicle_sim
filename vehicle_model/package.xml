@@ -56,16 +56,11 @@
   <build_depend>roscpp</build_depend>
   <build_depend>sensor_msgs</build_depend>
   <build_depend>std_msgs</build_depend>
-  <build_depend>tf</build_depend>
   <build_depend>transmission_interface</build_depend>
   <build_depend>velocity_controllers</build_depend>
   <build_depend>effort_controllers</build_depend>
   <build_depend>joint_state_controller</build_depend>
   <build_depend>gazebo_msgs</build_depend>
-  <build_depend>nav_msgs</build_depend>
-  <build_depend>tf2</build_depend>
-  <build_depend>tf2_geometry_msgs</build_depend>
-  <build_depend>diff_drive_controller</build_depend>
   <build_export_depend>controller_manager</build_export_depend>
   <build_export_depend>gazebo_ros_control</build_export_depend>
   <build_export_depend>geometry_msgs</build_export_depend>
@@ -73,16 +68,11 @@
   <build_export_depend>roscpp</build_export_depend>
   <build_export_depend>sensor_msgs</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
-  <build_export_depend>tf</build_export_depend>
   <build_export_depend>transmission_interface</build_export_depend>
   <build_export_depend>velocity_controllers</build_export_depend>
   <build_export_depend>effort_controllers</build_export_depend>
   <build_export_depend>joint_state_controller</build_export_depend>
   <build_export_depend>gazebo_msgs</build_export_depend>
-  <build_export_depend>nav_msgs</build_export_depend>
-  <build_export_depend>tf2</build_export_depend>
-  <build_export_depend>tf2_geometry_msgs</build_export_depend>
-  <build_export_depend>diff_drive_controller</build_export_depend>
   <exec_depend>controller_manager</exec_depend>
   <exec_depend>gazebo_ros_control</exec_depend>
   <exec_depend>geometry_msgs</exec_depend>
@@ -90,16 +80,11 @@
   <exec_depend>roscpp</exec_depend>
   <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>std_msgs</exec_depend>
-  <exec_depend>tf</exec_depend>
   <exec_depend>transmission_interface</exec_depend>
   <exec_depend>velocity_controllers</exec_depend>
   <exec_depend>effort_controllers</exec_depend>
   <exec_depend>joint_state_controller</exec_depend>
   <exec_depend>gazebo_msgs</exec_depend>
-  <exec_depend>nav_msgs</exec_depend>
-  <exec_depend>tf2</exec_depend>
-  <exec_depend>tf2_geometry_msgs</exec_depend>
-  <exec_depend>diff_drive_controller</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
