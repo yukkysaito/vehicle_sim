@@ -44,7 +44,7 @@ If GPU is available
 ```shell
 $ roslaunch vehicle_model world_test.launch gpu:=true
 ```
-https://youtu.be/JViNKB_igI4
+[![](https://img.youtube.com/vi/JViNKB_igI4/0.jpg)](https://www.youtube.com/watch?v=JViNKB_igI4)
 
 
 **If you need pointcloud map and path files for Autoware, you can download following url**
