@@ -42,17 +42,17 @@ VehicleInfoPublisher::VehicleInfoPublisher() : nh_(""), pnh_("~")
 void VehicleInfoPublisher::publishTimerCallback(const ros::TimerEvent &e)
 {
     gazebo_msgs::GetLinkState wheel_right_front_link_srv;
-    wheel_right_front_link_srv.request.link_name = "autoware::steering_right_front_link";
-    wheel_right_front_link_srv.request.reference_frame = "autoware::base_link";
+    wheel_right_front_link_srv.request.link_name = "autoware_gazebo::steering_right_front_link";
+    wheel_right_front_link_srv.request.reference_frame = "autoware_gazebo::base_link";
     client_.call(wheel_right_front_link_srv);
 
     gazebo_msgs::GetLinkState wheel_left_front_link_srv;
-    wheel_left_front_link_srv.request.link_name = "autoware::steering_left_front_link";
-    wheel_left_front_link_srv.request.reference_frame = "autoware::base_link";
+    wheel_left_front_link_srv.request.link_name = "autoware_gazebo::steering_left_front_link";
+    wheel_left_front_link_srv.request.reference_frame = "autoware_gazebo::base_link";
     client_.call(wheel_left_front_link_srv);
 
     gazebo_msgs::GetLinkState base_link_srv;
-    base_link_srv.request.link_name = "autoware::base_link";
+    base_link_srv.request.link_name = "autoware_gazebo::base_link";
     base_link_srv.request.reference_frame = "";
     client_.call(base_link_srv);
 
