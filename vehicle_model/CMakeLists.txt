@@ -19,6 +19,7 @@ find_package(catkin REQUIRED
   velocity_controllers
   joint_state_controller
   gazebo_msgs
+  diff_drive_controller
 )
 
 
@@ -42,6 +43,7 @@ catkin_package(
     transmission_interface
     velocity_controllers
     gazebo_msgs
+    diff_drive_controller
 #  DEPENDS system_lib
 )
 

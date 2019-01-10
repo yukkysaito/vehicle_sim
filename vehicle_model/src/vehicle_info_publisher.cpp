@@ -32,7 +32,7 @@ VehicleInfoPublisher::VehicleInfoPublisher() : nh_(""), pnh_("~")
     vehicle_twist_pub_ = nh_.advertise<geometry_msgs::TwistStamped>("/vehicle_info/twist", 1, true);
     steering_angle_pub_ = nh_.advertise<std_msgs::Float64>("/vehicle_info/steering_angle", 1, true);
     double publish_rate;
-    pnh_.param<double>("publish_rate", publish_rate, double(100.0));
+    pnh_.param<double>("publish_rate", publish_rate, double(50.0));
     publish_timer_ = nh_.createTimer(ros::Duration(1.0 / publish_rate), &VehicleInfoPublisher::publishTimerCallback, this);
 }
 

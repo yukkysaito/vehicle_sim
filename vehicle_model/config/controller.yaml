@@ -1,21 +1,48 @@
-  joint_state_controller:
-    type: joint_state_controller/JointStateController
-    publish_rate: 50  
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50  
 
-  wheel_left_rear_velocity_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: wheel_left_rear_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
-  wheel_right_rear_velocity_controller:
-    type: velocity_controllers/JointVelocityController
-    joint: wheel_right_rear_joint
-    pid: {p: 100.0, i: 0.01, d: 10.0}
+steering_left_front_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: steering_left_front_joint
+  pid: {p: 20000.0, i: 0.01, d: 10.0}
+steering_right_front_position_controller:
+  type: effort_controllers/JointPositionController
+  joint: steering_right_front_joint
+  pid: {p: 20000.0, i: 0.01, d: 10.0}
 
-  steering_left_front_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: steering_left_front_joint
-    pid: {p: 20000.0, i: 0.01, d: 10.0}
-  steering_right_front_position_controller:
-    type: effort_controllers/JointPositionController
-    joint: steering_right_front_joint
-    pid: {p: 20000.0, i: 0.01, d: 10.0}
+
+diff_drive_controller:
+  type        : "diff_drive_controller/DiffDriveController"
+  left_wheel  : 'wheel_left_rear_joint'
+  right_wheel : 'wheel_right_rear_joint'
+
+  publish_rate: 50.0
+  cmd_vel_timeout: 1.0
+  wheel_separation : 1.55
+  wheel_radius : 0.341
+  pose_covariance_diagonal : [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
+  twist_covariance_diagonal: [0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]
+
+  # tf
+  enable_odom_tf: true
+  base_frame_id: base_link
+  odom_frame_id: odom
+
+  # limits
+  linear:
+    x:
+      has_velocity_limits    : true
+      max_velocity           :  30.0 # m/s
+      min_velocity           : -30.0 # m/s
+      has_acceleration_limits: true
+      max_acceleration       :  1.0 # m/s^2
+      min_acceleration       : -1.0 # m/s^2
+  angular:
+    z:
+      has_velocity_limits    : true
+      max_velocity           :  1.5 # rad/s
+      min_velocity           : -1.5 # rad/s
+      has_acceleration_limits: true
+      max_acceleration       :  1.0  # rad/s^2
+      min_acceleration       : -1.0 # rad/s^2

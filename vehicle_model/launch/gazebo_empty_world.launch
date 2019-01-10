@@ -2,7 +2,7 @@
 <launch>
 
   <arg name="model" default="$(find vehicle_model)/urdf/vehicle.xacro"/>
-  <arg name="ns" default="/autoware"/>
+  <arg name="ns" default="/autoware_gazebo"/>
   <arg name="gpu" default="false"/>
   <param name="robot_description" command="$(find xacro)/xacro.py --inorder $(arg model) gpu:=$(arg gpu)" />
   <arg name="rvizconfig" default="$(find urdf_tutorial)/rviz/urdf.rviz" />
@@ -15,27 +15,29 @@
     <arg name="debug" value="false"/>
   </include>
 
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model autoware" />
-
-  <!-- Load joint controller configurations from YAML file to parameter server -->
-  <rosparam file="$(find vehicle_model)/config/controller.yaml" command="load" ns="/autoware"/>
-  
-  <!-- load the controllers -->
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-        output="screen" ns="/autoware" 
-        args="wheel_left_rear_velocity_controller wheel_right_rear_velocity_controller steering_left_front_position_controller steering_right_front_position_controller joint_state_controller"/>
-
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
-      <remap from="joint_states" to="$(arg ns)/joint_states"/>
-  </node>
+  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model autoware_gazebo" />
 
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
   <node name="rqt_robot_steering" pkg="rqt_robot_steering" type="rqt_robot_steering" />
 
   <group ns="$(arg ns)">
+    <!-- Load joint controller configurations from YAML file to parameter server -->
+    <rosparam file="$(find vehicle_model)/config/controller.yaml" command="load"/>
+    <!-- load the controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+          output="screen" 
+          args="diff_drive_controller steering_left_front_position_controller steering_right_front_position_controller joint_state_controller"/>
+    <!-- tf publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+    <!-- odom relay -->
+    <node name="odom_relay" pkg="topic_tools" type="relay" args="diff_drive_controller/odom /odom"/>
+
     <node name="twist2gazebo" pkg="vehicle_model" type="twist2gazebo" respawn="false"
           output="screen">
       <remap from="cmd_vel" to="/cmd_vel"/>
+    </node>
+    <node name="vehicle_info_publisher" pkg="vehicle_model" type="vehicle_info_publisher" respawn="false"
+          output="screen">
     </node>
     <node name="vehicle_info_publisher" pkg="vehicle_model" type="vehicle_info_publisher" respawn="false"
           output="screen">

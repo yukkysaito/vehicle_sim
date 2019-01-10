@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<robot name="autoware" xmlns:xacro="http://ros.org/wiki/xacro">
+<robot name="autoware_gazebo" xmlns:xacro="http://ros.org/wiki/xacro">
   <xacro:include filename="$(find vehicle_model)/urdf/body.xacro" />
   <xacro:include filename="$(find vehicle_model)/urdf/wheel.xacro" />
   <xacro:include filename="$(find vehicle_model)/urdf/steering.xacro" />
