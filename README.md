@@ -17,7 +17,7 @@ $ git clone https://github.com/yukkysaito/vehicle_sim.git --recurse-submodules
 ```
 or if you already have a copy of the repo, run `$ git submodule update --init --recursive`.
 
-# How to use (Example)
+# How to use
 
 1. build
 
@@ -46,9 +46,26 @@ $ roslaunch vehicle_model world_test.launch gpu:=true
 ```
 [![](https://img.youtube.com/vi/JViNKB_igI4/0.jpg)](https://www.youtube.com/watch?v=JViNKB_igI4)
 
+# Some example
+- **Citysim** : http://gazebosim.org/blog/car_sim
+```
+$ roslaunch vehicle_model gazebo7_citysim.launch gpu:=true
+```
+![screenshot from 2019-01-11 00-40-35-min](https://user-images.githubusercontent.com/8327598/50985197-19ba1e80-1547-11e9-98d1-284b3172c064.png)
+- **mcity(car_demo)** : https://github.com/osrf/car_demo
+```
+$ roslaunch vehicle_model gazebo_mcity.launch gpu:=true
+```
+![screenshot from 2019-01-11 00-38-49-min](https://user-images.githubusercontent.com/8327598/50985258-3e15fb00-1547-11e9-91d4-3b826b82136e.png)
 
-**If you need pointcloud map and path files for Autoware, you can download following url**
+- **Connect to Autoware** : https://github.com/CPFL/Autoware
+If you need pointcloud map and path files, you can download following url
 https://drive.google.com/drive/folders/1yu8s885HDkJp3IbMV06KWim2ZdUxIoIF?usp=sharing
+```
+$ roslaunch vehicle_model gazebo_autoware.launch gpu:=true
+```
+[![](https://img.youtube.com/vi/wIzZ25XJI2M/0.jpg)](https://www.youtube.com/watch?v=wIzZ25XJI2M)
+
 
 # How to change vehicle info
 You can customize sensor position and vehicle info.
