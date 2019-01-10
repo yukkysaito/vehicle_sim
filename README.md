@@ -4,13 +4,15 @@ The following sensors are simulated.
 - velodyne (VLP-16, HDL-32E)
 - camera
 - imu
-![github](https://user-images.githubusercontent.com/8327598/50725047-dc1a5780-113a-11e9-9487-ae0c6b67b47d.png)
-(Banana and tire visualization models are not in the repository due to copyright relationship. Although it looks different, it does not affect the motion)
+![screenshot from 2019-01-11 00-42-10-min](https://user-images.githubusercontent.com/8327598/50984661-bed3f780-1545-11e9-9af6-071ddd1cec76.png)
 
+# Requirements
+- ROS (higher kinetic)
+- gazebo (higher version 7)
 
 # Download
 ```shell
-$ cd "your catkin workspace/src/"
+$ cd <catkin workspace/src/>
 $ git clone https://github.com/yukkysaito/vehicle_sim.git --recurse-submodules
 ```
 or if you already have a copy of the repo, run `$ git submodule update --init --recursive`.
