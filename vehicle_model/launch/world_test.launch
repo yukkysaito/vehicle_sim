@@ -30,8 +30,6 @@
           args="diff_drive_controller steering_left_front_position_controller steering_right_front_position_controller joint_state_controller"/>
     <!-- tf publisher -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
-    <!-- odom relay -->
-    <node name="odom_relay" pkg="topic_tools" type="relay" args="diff_drive_controller/odom /odom"/>
 
     <rosparam file="$(find vehicle_model)/config/vehicle_info.yaml" command="load"/>
     <node name="twist2gazebo" pkg="vehicle_model" type="twist2gazebo" respawn="false"

@@ -25,7 +25,7 @@ Twist2GazeboController::Twist2GazeboController() : nh_(""), pnh_("~")
 {
     nh_.param("wheel_base", wheel_base_, 2.95);
     nh_.param("wheel_tread", wheel_tread_, 1.55);
-    wheel_rear_pub_ = nh_.advertise<geometry_msgs::Twist>("/command", 1, true);
+    wheel_rear_pub_ = nh_.advertise<geometry_msgs::Twist>("diff_drive_controller/cmd_vel", 1, true);
     steering_right_front_pub_ = nh_.advertise<std_msgs::Float64>("steering_right_front_position_controller/command", 1, true);
     steering_left_front_pub_ = nh_.advertise<std_msgs::Float64>("steering_left_front_position_controller/command", 1, true);
     sub_ = nh_.subscribe("cmd_vel", 1, &Twist2GazeboController::callback, this);
