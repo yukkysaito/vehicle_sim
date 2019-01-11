@@ -68,7 +68,9 @@ $ roslaunch vehicle_model gazebo_mcity.launch gpu:=true
 
 ## **Connect to Autoware** : https://github.com/CPFL/Autoware
 If you need pointcloud map and path files, you can download following url
-https://drive.google.com/drive/folders/1yu8s885HDkJp3IbMV06KWim2ZdUxIoIF?usp=sharing
+
+https://drive.google.com/open?id=1yu8s885HDkJp3IbMV06KWim2ZdUxIoIF
+(follwing video is used autoware_world)
 ```
 $ roslaunch vehicle_model gazebo_autoware.launch gpu:=true
 ```
