@@ -76,7 +76,7 @@ void VehicleInfoPublisher::jointStateCallback(const sensor_msgs::JointState::Con
             wheel_left_rear_vel = input_msg->velocity.at(i);
     }
     output_vel.data = wheel_radius_ * (wheel_left_rear_vel + wheel_right_rear_vel) / 2.0;
-    output_steering_angle.data = steering_right_front_angle + steering_left_front_angle / 2.0;
+    output_steering_angle.data = (steering_right_front_angle + steering_left_front_angle) / 2.0;
     vehicle_vel_pub_.publish(output_vel);
     steering_angle_pub_.publish(output_steering_angle);
 }
