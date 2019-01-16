@@ -16,6 +16,7 @@ find_package(catkin REQUIRED
   velocity_controllers
   joint_state_controller
   gazebo_msgs
+  urdf_tutorial
 )
 
 
@@ -36,6 +37,7 @@ catkin_package(
     transmission_interface
     velocity_controllers
     gazebo_msgs
+    urdf_tutorial
 #  DEPENDS system_lib
 )
 
