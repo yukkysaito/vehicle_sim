@@ -50,13 +50,9 @@ include_directories(
  ${catkin_INCLUDE_DIRS}
 )
 
-add_executable(twist2gazebo src/twist2gazebo.cpp)
-add_dependencies(twist2gazebo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(twist2gazebo ${catkin_LIBRARIES})
-
-add_executable(twiststamped2gazebo src/twiststamped2gazebo.cpp)
-add_dependencies(twiststamped2gazebo ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(twiststamped2gazebo ${catkin_LIBRARIES})
+add_executable(vehicle_input_subscriber src/vehicle_input_subscriber.cpp)
+add_dependencies(vehicle_input_subscriber ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(vehicle_input_subscriber ${catkin_LIBRARIES})
 
 add_executable(vehicle_info_publisher src/vehicle_info_publisher.cpp)
 add_dependencies(vehicle_info_publisher ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
@@ -78,7 +74,7 @@ install(DIRECTORY urdf
 install(DIRECTORY config
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
-install(TARGETS twist2gazebo twiststamped2gazebo vehicle_info_publisher
+install(TARGETS vehicle_input_subscriber vehicle_info_publisher
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

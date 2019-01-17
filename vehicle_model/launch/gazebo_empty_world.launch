@@ -30,12 +30,9 @@
     <!-- tf publisher -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
-    <node name="twist2gazebo" pkg="vehicle_model" type="twist2gazebo" respawn="false"
+    <node name="vehicle_input_subscriber" pkg="vehicle_model" type="vehicle_input_subscriber" respawn="false"
           output="screen">
       <remap from="cmd_vel" to="/cmd_vel"/>
-    </node>
-    <node name="vehicle_info_publisher" pkg="vehicle_model" type="vehicle_info_publisher" respawn="false"
-          output="screen">
     </node>
     <node name="vehicle_info_publisher" pkg="vehicle_model" type="vehicle_info_publisher" respawn="false"
           output="screen">
