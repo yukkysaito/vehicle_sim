@@ -12,7 +12,7 @@
 
   <xacro:property name="pi" value="3.1415926835897931"/>
 
-  <link name="base_link"/>
+  <link name="base_footprint"/>
 
   <!-- ================ vehicle ================ -->
   <!-- load parameter -->
@@ -26,11 +26,11 @@
   <xacro:property name="vehicle_length" value="${vehicle_info['vehicle_length']}"/>
   <xacro:property name="vehicle_width" value="${vehicle_info['vehicle_width']}"/>
   <xacro:property name="vehicle_height" value="${vehicle_info['vehicle_height']}"/>
-
   <xacro:property name="vehicle_mass_height" value="0.5"/>
 
-  <xacro:body_macro suffix="wheel_base"
-                    parent="base_link"
+  <!-- body-->
+  <xacro:body_macro suffix="base"
+                    parent="base_footprint"
                     wheel_radius="${wheel_radius}"
                     wheel_base="${wheel_base}"
                     vehicle_mass="${vehicle_mass}"
@@ -38,12 +38,16 @@
                     vehicle_length="${vehicle_length}"
                     vehicle_width="${vehicle_width}"
                     vehicle_height="${vehicle_height}"/>
-  <xacro:steering_macro suffix="steering_right_front" parent="wheel_base_link" x="${wheel_base}" y="${-1*wheel_tread/2}" yaw="0" length="${wheel_width}"/>
-  <xacro:steering_macro suffix="steering_left_front" parent="wheel_base_link" x="${wheel_base}" y="${wheel_tread/2}" yaw="0" length="${wheel_width}"/>
+  
+  <!-- steering-->
+  <xacro:steering_link_macro suffix="steering_front" parent="base_link" x="${wheel_base}" y="0"/>
+  <xacro:steering_macro suffix="steering_right_front" parent="steering_front_link" x="0" y="${-1*wheel_tread/2}" yaw="0" length="${wheel_width}"/>
+  <xacro:steering_macro suffix="steering_left_front" parent="steering_front_link" x="0" y="${wheel_tread/2}" yaw="0" length="${wheel_width}"/>
+  <!-- wheel -->
   <xacro:wheel_macro suffix="wheel_right_front" parent="steering_right_front_link" x="0" y="0" yaw="${pi}" radius="${wheel_radius}" width="${wheel_width}"/>
   <xacro:wheel_macro suffix="wheel_left_front" parent="steering_left_front_link" x="0" y="0" yaw="0" radius="${wheel_radius}" width="${wheel_width}"/>
-  <xacro:wheel_macro suffix="wheel_right_rear" parent="wheel_base_link" x="0" y="${-1*wheel_tread/2}" yaw="${pi}" radius="${wheel_radius}" width="${wheel_width}"/>
-  <xacro:wheel_macro suffix="wheel_left_rear" parent="wheel_base_link" x="0" y="${wheel_tread/2}" yaw="0" radius="${wheel_radius}" width="${wheel_width}"/>
+  <xacro:wheel_macro suffix="wheel_right_rear" parent="base_link" x="0" y="${-1*wheel_tread/2}" yaw="${pi}" radius="${wheel_radius}" width="${wheel_width}"/>
+  <xacro:wheel_macro suffix="wheel_left_rear" parent="base_link" x="0" y="${wheel_tread/2}" yaw="0" radius="${wheel_radius}" width="${wheel_width}"/>
   <!-- actuator -->
  	<xacro:include filename="$(find vehicle_model)/urdf/actuator.xacro"/>
   <!-- gazebo -->

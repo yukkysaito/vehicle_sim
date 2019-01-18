@@ -7,7 +7,7 @@
   <param name="robot_description" command="$(find xacro)/xacro.py --inorder $(arg model) gpu:=$(arg gpu)" />
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" default="$(find vehicle_model)/worlds/autoware.world"/> 
+    <arg name="world_name" default="$(find gazebo_world_description)/worlds/autoware.world"/> 
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
@@ -30,12 +30,12 @@
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
 
     <rosparam file="$(find vehicle_model)/config/vehicle_info.yaml" command="load"/>
-    <node name="vehicle_input_subscriber" pkg="vehicle_model" type="vehicle_input_subscriber" respawn="false"
+    <node name="vehicle_input_subscriber" pkg="vehicle_sim_interface" type="vehicle_input_subscriber" respawn="false"
           output="screen">
       <remap from="cmd_vel" to="/cmd_vel"/>
       <remap from="twist_cmd" to="/twist_cmd"/>
     </node>
-    <node name="vehicle_info_publisher" pkg="vehicle_model" type="vehicle_info_publisher" respawn="false"
+    <node name="vehicle_info_publisher" pkg="vehicle_sim_interface" type="vehicle_info_publisher" respawn="false"
           output="screen">
     </node>
   </group>
