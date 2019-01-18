@@ -23,7 +23,7 @@
         <!-- <origin xyz="${wheel_base/2} 0 ${vehicle_height/2}" rpy="0 ${-pi/2} ${pi/2}"/> -->
         <origin xyz="0 0 0" rpy="0 0 0"/>
         <geometry>
-          <mesh filename="package://vehicle_model/dae/body.dae" scale="${wheel_base/2.85} 1 1"/>
+          <mesh filename="package://vehicle_model/mesh/body.dae" scale="${wheel_base/2.85} 1 1"/>
         </geometry>
         <material name="black">
             <color rgba="0.1 0.1 0.1 0.5"/>

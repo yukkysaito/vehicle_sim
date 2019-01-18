@@ -17,9 +17,9 @@ else
   echo "Error"
 fi
 
-echo "Install citysim models"
+echo "Install osrf_citysim models"
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
-mv -n $SCRIPT_DIR/../../external_models/osrf_citysim/models/* ~/.gazebo/models/
+cp -n $SCRIPT_DIR/../../../worlds/external/osrf_citysim/models/* ~/.gazebo/models/
 
-echo "Install citysim models"
-mv -n $SCRIPT_DIR/../../external_models/car_demo/car_demo/models/* ~/.gazebo/models/
+echo "Install card_emo models"
+cp -n $SCRIPT_DIR/../../../worlds/external/car_demo/car_demo/models/* ~/.gazebo/models/

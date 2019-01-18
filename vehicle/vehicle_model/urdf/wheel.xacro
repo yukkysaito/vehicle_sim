@@ -16,7 +16,7 @@
     <link name="${suffix}_link">
       <visual>
         <geometry>
-          <mesh filename="package://vehicle_model/dae/wheel.dae" scale="${3*radius} ${3*radius} ${3*radius}"/>
+          <mesh filename="package://vehicle_model/mesh/wheel.dae" scale="${3*radius} ${3*radius} ${3*radius}"/>
         </geometry>
         <origin xyz="0 0 0" rpy="0 0 ${yaw}"/>
         <material name="gray">

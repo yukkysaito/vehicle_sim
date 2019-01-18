@@ -39,4 +39,16 @@
       </collision> -->
     </link>
   </xacro:macro>  
+
+  <xacro:macro name="steering_link_macro" params="suffix parent x y">
+    <xacro:property name="pi" value="3.1415926835897931" />
+
+    <joint name="${suffix}_joint" type="fixed">
+      <origin rpy="0 0 0" xyz="${x} ${y} 0"/>
+      <parent link="${parent}"/>
+      <child  link="${suffix}_link"/>
+    </joint>
+    <link name="${suffix}_link">
+    </link>
+  </xacro:macro>
 </robot>
