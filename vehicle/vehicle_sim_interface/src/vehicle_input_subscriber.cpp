@@ -61,6 +61,7 @@ void VehicleInputSubscriber::twistStampedCallback(const geometry_msgs::TwistStam
     }
 
     double delta_ref = std::atan(input_twist_msg->twist.angular.z * wheel_base_ / vref_rear);
+    delta_ref = 0.0 < vref_rear ? delta_ref : -delta_ref;
     if (M_PI / 4.0 < std::fabs(delta_ref))
     {
         delta_ref = 0.0 < delta_ref ? M_PI / 4.0 : -M_PI / 4.0;
@@ -88,6 +89,7 @@ void VehicleInputSubscriber::twistCallback(const geometry_msgs::Twist::ConstPtr 
     }
 
     double delta_ref = std::atan(input_twist_msg->angular.z * wheel_base_ / vref_rear);
+    delta_ref = 0.0 < vref_rear ? delta_ref : -delta_ref;
     if (M_PI / 4.0 < std::fabs(delta_ref))
     {
         delta_ref = 0.0 < delta_ref ? M_PI / 4.0 : -M_PI / 4.0;
