@@ -67,7 +67,7 @@ $ roslaunch vehicle_sim_launcher gazebo_mcity.launch gpu:=true
 ![screenshot from 2019-01-11 00-38-49-min](https://user-images.githubusercontent.com/8327598/50985258-3e15fb00-1547-11e9-91d4-3b826b82136e.png)
 
 ## **Connect to Autoware** : https://github.com/CPFL/Autoware
-If you need pointcloud map and path files, you can [download](https://drive.google.com/open?id=1yu8s885HDkJp3IbMV06KWim2ZdUxIoIF).  
+If you need pointcloud map and path files, you can [download](https://drive.google.com/drive/folders/1GIKh2I5JTpJC7QJIYYtZ1YdJFTRdl8HW?usp=sharing).
 The follwing video is used *autoware_world/pointcloud_map* and *autoware_world/path*.
 ```
 $ roslaunch vehicle_sim_launcher gazebo_autoware.launch gpu:=true
